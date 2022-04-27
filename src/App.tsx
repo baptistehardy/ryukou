@@ -1,19 +1,20 @@
 import { useStore } from "./store"
+import { Button, Text } from "@chakra-ui/react"
 
 function App() {
     const { count, increaseCount, reset } = useStore()
     
     return (
         <div className="app">
-            <p>count: {count}</p>
+            <Text>count: {count}</Text>
             <p>
-                <button type="button" onClick={() => increaseCount(1)}>
+                <Button type="button" onClick={() => increaseCount(1)}>
                     Add 1 to count
-                </button>
+                </Button>
             </p>
-            <button type="button" onClick={reset}>
+            <Button type="button" onClick={reset}>
                 Reset
-            </button>
+            </Button>
         </div>
     )
 }
