@@ -4,22 +4,39 @@ const getLocalStorage = (key: string) => JSON.parse(window.localStorage.getItem(
 const setLocalStorage = (key: string, value: any) =>
     window.localStorage.setItem(key, JSON.stringify(value));
 
-interface Count {
-    count: number;
-    increaseCount: (count: any) => void,
+export interface Cloth {
+    id?: string
+    name: string,
+    image?: string,
+    url: string
+}
+
+export interface ClothesSets {
+    id: string,
+    name: string,
+    data: ClothesSetsData[]
+}
+
+interface ClothesSetsData {
+
+}
+
+interface ClothesStore {
+    clothes: Cloth[],
+    addCloth: (cloth: Cloth) => void,
     reset: () => void
 }
 
-export const useStore = create<Count>(set => ({
-    count: getLocalStorage("count") || 0,
-    increaseCount: (number) =>
+export const useClothesStore = create<ClothesStore>(set => ({
+    clothes: getLocalStorage("clothes") || [],
+    addCloth: (cloth) =>
         set((state) => {
-            state.count += number;
-            setLocalStorage("count", state.count);
+            state.clothes.push(cloth)
+            setLocalStorage("clothes", state.clothes);
         }),
     reset: () =>
         set((state) => {
-            state.count = 0;
-            setLocalStorage("count", state.count);
+            state.clothes = []
+            setLocalStorage("clothes", state.clothes);
         }),
 }))
